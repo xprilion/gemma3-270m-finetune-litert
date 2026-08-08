@@ -1,0 +1,326 @@
+/* Self-contained styling for Snippy Demo (Zero CDN dependencies) */
+
+:root {
+  --bg-color: #0f172a;
+  --panel-bg: rgba(30, 41, 59, 0.9);
+  --primary: #6366f1;
+  --primary-hover: #4f46e5;
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --border-color: #334155;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 1rem;
+  transition: background-color 0.5s ease;
+}
+
+/* Alert Banner */
+#alertBanner {
+  position: fixed;
+  top: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  background: #4f46e5;
+  color: #ffffff;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+  font-weight: 600;
+  font-size: 0.875rem;
+  border: 1px solid #818cf8;
+  transition: all 0.3s ease;
+}
+
+#alertBanner.hidden {
+  display: none;
+}
+
+/* Main Container */
+.demo-card {
+  max-width: 48rem;
+  width: 100%;
+  background: var(--panel-bg);
+  backdrop-filter: blur(12px);
+  border-radius: 1rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  padding: 1.5rem;
+  border: 1px solid var(--border-color);
+}
+
+/* Header */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.logo-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.75rem;
+  background: linear-gradient(135deg, #6366f1, #ec4899);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+}
+
+.title-group h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #818cf8;
+}
+
+.title-group p {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+/* Status Badge */
+.status-badge {
+  background: rgba(245, 158, 11, 0.15);
+  color: #fcd34d;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.375rem 0.875rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.status-badge.ready {
+  background: rgba(16, 185, 129, 0.15);
+  color: #6ee7b7;
+  border-color: rgba(16, 185, 129, 0.3);
+}
+
+.status-badge.error {
+  background: rgba(239, 68, 68, 0.15);
+  color: #fca5a5;
+  border-color: rgba(239, 68, 68, 0.3);
+}
+
+/* Live Tool Log Panel */
+.tool-log-container {
+  background: rgba(2, 6, 23, 0.8);
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  border-radius: 0.75rem;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+}
+
+.tool-log-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #818cf8;
+  margin-bottom: 0.5rem;
+}
+
+.tool-count {
+  background: rgba(99, 102, 241, 0.2);
+  color: #c7d2fe;
+  padding: 0.15rem 0.5rem;
+  border-radius: 0.375rem;
+  font-size: 0.7rem;
+}
+
+.tool-log-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  max-height: 6rem;
+  overflow-y: auto;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.75rem;
+}
+
+.tool-log-empty {
+  color: var(--text-muted);
+  font-style: italic;
+  font-size: 0.75rem;
+}
+
+.tool-log-item {
+  background: rgba(15, 23, 42, 0.9);
+  border-left: 3px solid #10b981;
+  padding: 0.35rem 0.5rem;
+  border-radius: 0.25rem;
+  color: #34d399;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.tool-log-item .tool-name {
+  color: #fcd34d;
+  font-weight: 600;
+}
+
+/* Action Playground */
+#actionPlayground {
+  margin-bottom: 1rem;
+  padding: 1rem;
+  background: rgba(2, 6, 23, 0.6);
+  border-radius: 0.75rem;
+  border: 1px solid var(--border-color);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+#actionPlayground:empty {
+  display: none;
+}
+
+/* Chat Box */
+#chatBox {
+  background: #020617;
+  border-radius: 0.75rem;
+  padding: 1rem;
+  height: 18rem;
+  overflow-y: auto;
+  margin-bottom: 1rem;
+  border: 1px solid var(--border-color);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.875rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.welcome-msg {
+  color: var(--text-muted);
+  font-style: italic;
+  line-height: 1.6;
+}
+
+.user-msg {
+  color: #a5b4fc;
+}
+
+.snippy-msg {
+  color: #34d399;
+}
+
+.code-block {
+  background: #0f172a;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.375rem;
+  border: 1px solid #334155;
+  color: #fcd34d;
+  font-size: 0.75rem;
+  margin-top: 0.5rem;
+  overflow-x: auto;
+}
+
+/* Input Form */
+#promptForm {
+  display: flex;
+  gap: 0.5rem;
+}
+
+#promptInput {
+  flex: 1;
+  background: #0f172a;
+  border: 1px solid var(--border-color);
+  border-radius: 0.75rem;
+  padding: 0.75rem 1rem;
+  color: var(--text-main);
+  font-size: 0.875rem;
+  outline: none;
+}
+
+#promptInput:focus {
+  border-color: var(--primary);
+}
+
+#promptInput:disabled {
+  opacity: 0.5;
+}
+
+#sendBtn {
+  background: var(--primary);
+  color: white;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  border: none;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: background 0.2s;
+}
+
+#sendBtn:hover:not(:disabled) {
+  background: var(--primary-hover);
+}
+
+#sendBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Snippy Created Elements */
+.snippy-btn {
+  background: linear-gradient(135deg, #ec4899, #6366f1);
+  color: white;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+  font-size: 0.75rem;
+  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);
+  transition: transform 0.1s;
+}
+
+.snippy-btn:active {
+  transform: scale(0.95);
+}
+
+.snippy-card {
+  background: #0f172a;
+  border: 1px solid rgba(99, 102, 241, 0.4);
+  border-radius: 0.75rem;
+  padding: 1rem;
+  max-width: 20rem;
+  box-shadow: 0 10px 15px -3px rgba(0,0,0,0.5);
+}
+
+.snippy-card h3 {
+  font-weight: 700;
+  color: #a5b4fc;
+  font-size: 0.875rem;
+  margin-bottom: 0.25rem;
+}
+
+.snippy-card p {
+  font-size: 0.75rem;
+  color: #cbd5e1;
+}

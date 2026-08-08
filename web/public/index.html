@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Snippy - In-Browser Snippet Generator Agent (LiteRT.js)</title>
+  
+  <!-- Self-contained CSS stylesheet -->
+  <link rel="stylesheet" href="./style.css">
+
+  <!-- Confetti library for browser celebration actions -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+
+  <!-- Import Map for Browser ES Modules -->
+  <script type="importmap">
+  {
+    "imports": {
+      "@litertjs/core": "/node_modules/@litertjs/core/dist/index.js",
+      "@litertjs/wasm-utils": "/node_modules/@litertjs/wasm-utils/dist/index.js"
+    }
+  }
+  </script>
+</head>
+<body id="pageBody">
+  
+  <!-- Alert Banner -->
+  <div id="alertBanner" class="hidden">
+    <span id="alertMessage">Notification</span>
+  </div>
+
+  <div class="demo-card">
+    <!-- Header -->
+    <div class="header">
+      <div class="brand">
+        <div class="logo-icon">⚡</div>
+        <div class="title-group">
+          <h1>Snippy</h1>
+          <p>In-Browser Snippet Generator Agent • Gemma 3 + LiteRT.js (WebGPU)</p>
+        </div>
+      </div>
+      <div id="statusBadge" class="status-badge">
+        Initializing WASM...
+      </div>
+    </div>
+
+    <!-- Live Tool Execution Log (UI Action Activity Stream) -->
+    <div id="toolLogSection" class="tool-log-container">
+      <div class="tool-log-header">
+        <span>⚡ UI Tool Call Activity Stream</span>
+        <span id="toolCountBadge" class="tool-count">0 Tool Calls Executed</span>
+      </div>
+      <div id="toolLogList" class="tool-log-list">
+        <div class="tool-log-empty">Waiting for Snippy tool calls...</div>
+      </div>
+    </div>
+
+    <!-- Action Playground Container (Snippy spawns elements here) -->
+    <div id="actionPlayground"></div>
+
+    <!-- Chat Box -->
+    <div id="chatBox">
+      <div class="welcome-msg">
+        👋 Say hi to Snippy! Snippy generates code snippets & calls generic browser tools live on the UI.<br/>
+        Try asking:<br/>
+        • <i>"Snippy, make the background dark red"</i><br/>
+        • <i>"Snippy, celebrate with confetti!"</i><br/>
+        • <i>"Snippy, create a button called Explore Edge AI"</i><br/>
+        • <i>"Snippy, add a card about LiteRT.js"</i>
+      </div>
+    </div>
+
+    <!-- Input Form -->
+    <form id="promptForm">
+      <input 
+        type="text" 
+        id="promptInput" 
+        placeholder="Ask Snippy to change something or trigger a tool on this webpage..." 
+        disabled
+      />
+      <button type="submit" id="sendBtn" disabled>Send</button>
+    </form>
+  </div>
+
+  <script type="module" src="./app.js"></script>
+</body>
+</html>

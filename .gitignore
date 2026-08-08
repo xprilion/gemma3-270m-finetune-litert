@@ -1,0 +1,26 @@
+# Large model files & conversion outputs
+*.litertlm
+*.tflite
+*.xnnpack_cache
+*.safetensors
+*.bin
+*.pt
+*.pth
+lora_adapter/
+fine_tuned_gemma_merged/
+litert_output/
+results/
+public/models/
+web/public/models/
+models/
+
+# Environments & Node modules
+.venv/
+node_modules/
+web/node_modules/
+
+# OS & Python checkpoints
+.DS_Store
+*.pyc
+__pycache__/
+.ipynb_checkpoints/
