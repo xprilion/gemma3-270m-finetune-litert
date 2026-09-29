@@ -28,57 +28,138 @@
     <span id="alertMessage">Notification</span>
   </div>
 
-  <div class="demo-card">
-    <!-- Header -->
-    <div class="header">
+  <div class="app-layout">
+    <!-- Top Header Bar -->
+    <header class="app-header">
       <div class="brand">
         <div class="logo-icon">⚡</div>
         <div class="title-group">
           <h1>Snippy</h1>
-          <p>In-Browser Snippet Generator Agent • Gemma 3 + LiteRT.js (WebGPU)</p>
+          <p>In-Browser AI Agent • Gemma 3 + LiteRT.js WebAssembly (Zero Server Compute)</p>
         </div>
       </div>
       <div id="statusBadge" class="status-badge">
         Initializing WASM...
       </div>
-    </div>
+    </header>
 
-    <!-- Live Tool Execution Log (UI Action Activity Stream) -->
-    <div id="toolLogSection" class="tool-log-container">
-      <div class="tool-log-header">
-        <span>⚡ UI Tool Call Activity Stream</span>
-        <span id="toolCountBadge" class="tool-count">0 Tool Calls Executed</span>
-      </div>
-      <div id="toolLogList" class="tool-log-list">
-        <div class="tool-log-empty">Waiting for Snippy tool calls...</div>
-      </div>
-    </div>
+    <!-- Side-by-Side Two Column Layout -->
+    <main class="demo-grid">
+      <!-- Left Column: Snippy Agent & Chat Interface -->
+      <section class="panel-card chat-panel">
+        <div class="panel-header">
+          <div class="panel-title">
+            <span class="panel-icon">💬</span>
+            <h2>Snippy Agent & UI Actions</h2>
+          </div>
+          <span class="panel-subtitle">Try: <i>"make background neon green"</i>, <i>"do a barrel roll"</i></span>
+        </div>
 
-    <!-- Action Playground Container (Snippy spawns elements here) -->
-    <div id="actionPlayground"></div>
+        <!-- Chat Box -->
+        <div id="chatBox">
+          <div class="welcome-msg">
+            👋 Say hi to Snippy! Snippy generates code snippets & calls generic browser tools live on the UI.<br/>
+            Try asking:<br/>
+            • <i>"make the background neon green"</i><br/>
+            • <i>"change background to midnight blue"</i><br/>
+            • <i>"do a barrel roll"</i><br/>
+            • <i>"celebrate with confetti!"</i><br/>
+            • <i>"create a button called Launch Rocket"</i>
+          </div>
+        </div>
 
-    <!-- Chat Box -->
-    <div id="chatBox">
-      <div class="welcome-msg">
-        👋 Say hi to Snippy! Snippy generates code snippets & calls generic browser tools live on the UI.<br/>
-        Try asking:<br/>
-        • <i>"Snippy, make the background dark red"</i><br/>
-        • <i>"Snippy, celebrate with confetti!"</i><br/>
-        • <i>"Snippy, create a button called Explore Edge AI"</i><br/>
-        • <i>"Snippy, add a card about LiteRT.js"</i>
-      </div>
-    </div>
+        <!-- Input Form -->
+        <form id="promptForm">
+          <input 
+            type="text" 
+            id="promptInput" 
+            placeholder="Ask Snippy to change background color or run an action..." 
+            disabled
+          />
+          <button type="submit" id="sendBtn" disabled>Send</button>
+        </form>
 
-    <!-- Input Form -->
-    <form id="promptForm">
-      <input 
-        type="text" 
-        id="promptInput" 
-        placeholder="Ask Snippy to change something or trigger a tool on this webpage..." 
-        disabled
-      />
-      <button type="submit" id="sendBtn" disabled>Send</button>
-    </form>
+        <!-- Action Playground Container (Snippy spawns elements here) -->
+        <div id="actionPlayground"></div>
+
+        <!-- Live Tool Execution Log (UI Action Activity Stream) -->
+        <div id="toolLogSection" class="tool-log-container">
+          <div class="tool-log-header">
+            <span>⚡ UI Tool Call Activity Stream</span>
+            <span id="toolCountBadge" class="tool-count">0 Tool Calls Executed</span>
+          </div>
+          <div id="toolLogList" class="tool-log-list">
+            <div class="tool-log-empty">Waiting for Snippy tool calls...</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Right Column: WebAssembly Memory & Spike Monitor -->
+      <section class="panel-card monitor-panel">
+        <div class="panel-header">
+          <div class="panel-title">
+            <span class="memory-live-indicator"></span>
+            <h2>WASM Memory & Spike Monitor</h2>
+          </div>
+          <div class="memory-header-actions">
+            <button id="downloadChartBtn" class="chart-btn" type="button" title="Export chart as PNG">📸 Download Chart</button>
+            <button id="clearChartBtn" class="chart-btn secondary" type="button" title="Reset timeline">Reset</button>
+          </div>
+        </div>
+
+        <!-- Live Metric Badges -->
+        <div class="memory-metrics-grid">
+          <div class="metric-card">
+            <span class="metric-label">Total Memory</span>
+            <span id="metricTotalMem" class="metric-val">-- MB</span>
+          </div>
+          <div class="metric-card">
+            <span class="metric-label">WASM Linear Memory</span>
+            <span id="metricWasmMem" class="metric-val">-- MB</span>
+          </div>
+          <div class="metric-card">
+            <span class="metric-label">JS Heap Memory</span>
+            <span id="metricJsMem" class="metric-val">-- MB</span>
+          </div>
+          <div class="metric-card">
+            <span class="metric-label">Peak Memory</span>
+            <span id="metricPeakMem" class="metric-val">-- MB</span>
+          </div>
+          <div class="metric-card spike-card">
+            <span class="metric-label">Spike Status</span>
+            <span id="metricSpikeStatus" class="metric-val status-normal">🟢 Stable</span>
+          </div>
+        </div>
+
+        <!-- Model Control & Streaming Load Bar -->
+        <div class="memory-controls-bar">
+          <button id="loadModelBtn" class="model-action-btn load-btn" type="button">⚡ Loading WASM Model (267MB model.tflite)...</button>
+          <button id="runInferenceBtn" class="model-action-btn run-btn" type="button" disabled>🧠 Run Inference / Spike Test</button>
+          <div id="loadProgressContainer" class="load-progress-wrapper hidden">
+            <div class="progress-bar-track">
+              <div id="loadProgressBar" class="progress-bar-fill"></div>
+            </div>
+            <span id="loadProgressText" class="progress-text">0%</span>
+          </div>
+        </div>
+
+        <!-- Real-Time Scrolling Canvas Chart -->
+        <div class="chart-canvas-container">
+          <canvas id="memoryChart" width="600" height="210"></canvas>
+        </div>
+        <div class="chart-legend-row">
+          <span class="legend-badge"><span class="legend-dot dot-total"></span> Total Memory</span>
+          <span class="legend-badge"><span class="legend-dot dot-wasm"></span> WASM Heap</span>
+          <span class="legend-badge"><span class="legend-dot dot-js"></span> JS Heap</span>
+          <span class="legend-badge"><span class="legend-dot dot-spike"></span> Spike Alert</span>
+        </div>
+
+        <!-- Helpful Demo Guidance Note -->
+        <div class="monitor-tips-box">
+          <strong>💡 Demo Note:</strong> Notice how dynamic background changes (DOM color repaints) consume 0 extra RAM, while loading the 267MB model and generating prompts create distinct WebAssembly allocation spikes.
+        </div>
+      </section>
+    </main>
   </div>
 
   <script type="module" src="./app.js"></script>
